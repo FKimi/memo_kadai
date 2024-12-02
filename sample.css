@@ -1,66 +1,90 @@
-body{
-    margin:0;
-    padding:0;
-    text-align:left;
-    font-size: 22px;
-}
-header{
-    background-color: #fff;
-    border-bottom: 1px solid #ccc;
-    text-align: center;
-}
-main{
-    border-bottom:1px solid #ccc;
-    position:relative;
+/* 基本設定 */
+body {
+    margin: 0;    /* 外側の余白をなくす */
+    padding: 0;   /* 内側の余白をなくす */
+    text-align: left; /* 文字を左揃えに */
+    font-size: 22px;   /* 文字の大きさ */
+    background-color: hsl(0, 0%, 100%);  /* 背景を白に */
 }
 
-p{
-    font-size:100%;
-    text-align: center;
-    border-bottom:1px solid #fff;
-    height:100px;
+/* ヘッダー部分 */
+header {
+    background-color: hsl(0, 0%, 100%);  /* 背景を白に */
+    border-bottom: 1px solid #ccc;  /* 下に薄い線を引く */
+    text-align: center; /* 文字を中央に */
 }
 
-ul{
-    padding: 0;
-    border-top: 1px solid #000000;
-    display:table;  /* 定義 */
-    table-layout: fixed;
-    width:100%;
+/* メインコンテンツ */
+main {
+    border-bottom: 1px solid #ccc;  /* 下に薄い線を引く */
+    position: relative;  /* 位置の基準点にする */
 }
 
-li{
-    text-align: center;
-    list-style-type:none;
-    border: 1px solid #666;
-    background-color: #FFF;
-    display:table-cell;  /* 定義 */
-    cursor: pointer;
-}
-li:hover{
-    background: #0066CC;
-    color:#fff;
-}
-input,textarea{
-    margin: 3%;
-    width: 95%;
-    font-size:80%;
-    box-shadow: 3px 3px 3px 3px #555;
-}
-input{
-    height: 30px;
-}
-textarea{
-    height: 230px;
+/* 入力フィールド */
+input, textarea {
+    margin: 3%;  /* 周りに余白 */
+    width: 94%;  /* 幅 */
+    font-size: 80%;  /* 文字の大きさ */
+    box-shadow: 3px 3px 3px 3px #555;  /* 影をつける */
+    border-radius: 5px;  /* 角を丸くする */
 }
 
-div{
-  height: 200px;
-  overflow-y: scroll;
-  border: 1px solid #666;
-  margin: 10px;
+input {
+    height: 30px;  /* 一行入力用の高さ */
 }
-div p{
-  font-size: 1.5rem;
-  height: auto;
+
+textarea {
+    height: 230px;  /* 複数行入力用の高さ */
+}
+
+/* メモ一覧エリア */
+#memo-list {
+    height: 40vh;  /* 画面の高さの~~%を使用（vh：ビューポートの高さ） */
+    overflow-y: scroll;  /* スクロール */
+    border: 1px solid #666;  /* 枠線をつける */
+    margin: 10px;  /* 外側の余白 */
+    border-radius: 5px;  /* 角を丸くする */
+}
+
+/* メモアイテム */
+.memo-item {
+    padding: 10px;  /* 内側の余白 */
+    border-bottom: 1px solid #ccc;  /* 下に線を引く */
+}
+
+/* メモテキスト */
+.memo-item p {
+    font-size: 1.5rem;  /* 文字の大きさ */
+    height: auto;  /* 高さを自動調整 */
+    text-align: left;  /* 左揃え */
+    border-bottom: none;  /* 下線なし */
+    margin: 0; /* 余白調整 */
+    padding: 5px 0; 
+}
+
+/* ボタンリスト */
+ul {
+    padding: 0;  /* 内側の余白をなくす */
+    border-top: 1px solid #000;  /* 上に黒い線を引く */
+    display: table;  /* 表のような表示に */
+    table-layout: fixed;  /* 幅を均等に */
+    width: 100%;  /* 画面いっぱいに広げる */
+    margin: 0;  /* 外側の余白をなくす */
+    border-radius: 5px;  /* 角を丸くする */
+}
+
+li {
+    text-align: center;  /* 文字を中央に */
+    list-style-type: none;  /* 点を消す */
+    border: 1px solid #666;  /* 枠線をつける */
+    background-color: #FFF;  /* 背景を白に */
+    display: table-cell;  /* 横並びにする */
+    cursor: pointer;  /* マウスを載せると指マークに */
+    padding: 10px 0;  /* 上下に余白をつける */
+    border-radius: 5px;  /* 角を丸くする */
+}
+
+li:hover {
+    background: #0066CC;  /* 背景を青色に */
+    color: #fff;  /* 文字を白色に */
 }
