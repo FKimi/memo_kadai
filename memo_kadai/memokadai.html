@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <!-- 日本語を含む文字を正しく表示するための設定 -->
+  <meta charset="UTF-8">
+  <!-- スマートフォンでの表示を適切にする設定 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ぼやきシート</title>
+  <link rel="stylesheet" href="css/sample.css">
+</head>
+
+<body>
+  <header>
+    <h1>ぼやきシート</h1>   
+  </header>
+
+  <main>  
+    <!-- ぼやきメモ枠を作る -->
+    <input type="text" id="input" placeholder="ぼやきを入力してね"> 
+    <div id="memo-list"></div>    <!-- ぼやき一覧を表示する場所 -->
+    <ul>     
+        <li id="save">保存</li>
+        <li id="clear">消去</li>
+    </ul>
+  </main>  
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+   // メモを保存するための配列
+   let memoList = [];
+
+   // ページ読み込み時に保存されているメモを読み込む
+   if (localStorage.getItem("memoList")) {
+   memoList = JSON.parse(localStorage.getItem("memoList"));
+   displayMemos();  // 保存されているメモを表示
+   }
+
+   // 保存ボタンを押したときの処理
+   $("#save").on("click", function () {
+   // 入力が空の場合は保存しない
+   if (!$("#input").val()) {
+   alert("ぼやきを入力してください！");
+   return;
+   }
+   
+   // 新しいメモを作成
+   const newMemo = {
+   "title": $("#input").val(),
+   "date": new Date().toLocaleString() // 保存した日時も記録
+   };
+
+   // 配列に追加
+   memoList.push(newMemo);
+
+   // LocalStorageに保存
+   localStorage.setItem("memoList", JSON.stringify(memoList)); 
+
+   // 画面にメモを表示
+   displayMemos();
+
+   // 入力欄をクリア
+   $("#input").val("");
+   alert("保存したよ！");
+   });
+
+   // メモを画面に表示する関数
+   function displayMemos() {
+    const memoArea = $("#memo-list");
+    memoArea.empty();  // 一旦表示をクリア
+     // 配列の中身を新しい順に表示
+     memoList.slice().reverse().forEach(function(memo) {
+       memoArea.append(`
+         <div class="memo-item">
+           <p>${memo.title}</p>
+           <small>${memo.date}</small>
+           </div>
+        `);
+    });
+}
+
+   // 消去ボタンを押したときの処理
+   $("#clear").on("click", function () {
+   if (confirm("本当にすべてのぼやきを消去しますか？")) {
+     memoList = [];  // 配列を空にする
+     localStorage.removeItem("memoList");
+        $("#memo-list").empty();
+        $("#input").val("");
+    }
+});
+  </script>
+
+</body>
+
+</html>
