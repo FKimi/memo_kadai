@@ -12,27 +12,31 @@
 
 <body>
   <header>
-    <h1>ぼやきシート</h1>   
+    <h1>ぼやきシート</h1>  
+    <h5> 思考実験の場です（使い方は自由：日々の日常、違和感、出来事や感想、発見など。思考の垂れ流し/自由メモetc）</h5>   
+
   </header>
 
   <main>  
-    <!-- ぼやきメモ枠を作る -->
+    <!-- ぼやきメモを入力する箱 -->
     <input type="text" id="input" placeholder="ぼやきを入力してね"> 
-    <div id="memo-list"></div>    <!-- ぼやき一覧を表示する場所 -->
+    <!-- ぼやき一覧を表示する場所 -->
+    <div id="memo-list"></div> 
+    <!-- リスト -->
     <ul>     
         <li id="save">保存</li>
         <li id="clear">消去</li>
     </ul>
   </main>  
-  
+    <!-- JavaScriptを読み込む部分 -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script>
    // メモを保存するための配列
    let memoList = [];
 
-   // ページ読み込み時に保存されているメモを読み込む
-   if (localStorage.getItem("memoList")) {
-   memoList = JSON.parse(localStorage.getItem("memoList"));
+   // ブラウザの中のメモ帳のような保存場所   
+   if (localStorage.getItem("memoList")) {   // 引き出しの中にメモがあるか確認
+   memoList = JSON.parse(localStorage.getItem("memoList"));  // 引き出しから取り出したメモを読める形に変換
    displayMemos();  // 保存されているメモを表示
    }
 
@@ -43,17 +47,16 @@
    alert("ぼやきを入力してください！");
    return;
    }
-   
+
    // 新しいメモを作成
    const newMemo = {
    "title": $("#input").val(),
    "date": new Date().toLocaleString() // 保存した日時も記録
    };
 
-   // 配列に追加
+   // 配列に追加（新しいメモを箱の中に入れる）
    memoList.push(newMemo);
-
-   // LocalStorageに保存
+   // LocalStorageに保存（メモの箱を引き出しに保存する）
    localStorage.setItem("memoList", JSON.stringify(memoList)); 
 
    // 画面にメモを表示
@@ -69,7 +72,7 @@
     const memoArea = $("#memo-list");
     memoArea.empty();  // 一旦表示をクリア
      // 配列の中身を新しい順に表示
-     memoList.slice().reverse().forEach(function(memo) {
+     memoList.slice().reverse().forEach(function(memo) {   
        memoArea.append(`
          <div class="memo-item">
            <p>${memo.title}</p>
@@ -81,7 +84,7 @@
 
    // 消去ボタンを押したときの処理
    $("#clear").on("click", function () {
-   if (confirm("本当にすべてのぼやきを消去しますか？")) {
+   if (confirm("本当にすべてのぼやきを消去しますか？")) {   // 確認のメッセージを表示
      memoList = [];  // 配列を空にする
      localStorage.removeItem("memoList");
         $("#memo-list").empty();
